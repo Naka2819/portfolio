@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — UI/UX designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F3F0;
+  --ink:#121212;
+  --muted:#6B6A66;
+  --line:#DAD8D2;
+  --bezel:#E8E6E1;
+  --ease:cubic-bezier(.75,0,.2,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+body.entered{overflow:auto}
+a{color:inherit;text-decoration:none}
+
+/* ---------- INTRO ---------- */
+.scene{position:fixed;inset:0;display:grid;place-items:center;perspective:1600px;cursor:pointer;z-index:2}
+.rig{position:relative;display:flex;flex-direction:column;align-items:center;transform-style:preserve-3d}
+.bezel{position:relative;padding:9px 9px 24px;border-radius:14px;
+  background:linear-gradient(180deg,#1a1a1c,#0e0e10);
+  box-shadow:0 0 0 1px #3a3a3d inset,0 0 0 1.5px #c8c8cb,0 50px 70px -40px rgba(0,0,0,.45),0 20px 30px -20px rgba(0,0,0,.25)}
+.bezel::after{content:"";position:absolute;left:50%;bottom:9px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#2c2c2f}
+.screen{position:relative;overflow:hidden;border-radius:3px;background:#0b0b0c}
+.screen .home{position:absolute;top:0;left:0;transform-origin:0 0;pointer-events:none}
+.crt{position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 32%,rgba(255,255,255,0) 33%,rgba(255,255,255,0) 100%)}
+.power{position:absolute;inset:0;background:#0b0b0c;pointer-events:none}
+.stand{width:110px;height:86px;margin-top:-1px;
+  background:linear-gradient(90deg,#a7a7aa 0%,#d9d9dc 22%,#f1f1f3 50%,#d4d4d7 78%,#9d9da0 100%);
+  clip-path:polygon(14% 0,86% 0,100% 100%,0 100%)}
+.stand::before{content:"";display:block;height:14px;background:linear-gradient(rgba(0,0,0,.28),transparent)}
+.base{width:230px;height:11px;border-radius:2px 2px 9px 9px;
+  background:linear-gradient(180deg,#f4f4f6,#cfcfd2 60%,#a9a9ac);
+  box-shadow:0 10px 16px -8px rgba(0,0,0,.35)}
+.floor{display:flex;align-items:center;justify-content:center;gap:40px;margin-top:34px}
+.keyboard{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:3px;padding:7px;border-radius:9px;
+  background:linear-gradient(180deg,#ededef,#d3d3d6);
+  box-shadow:0 1px 0 #fff inset,0 14px 18px -10px rgba(0,0,0,.35)}
+.keyboard i{display:block;height:10px;border-radius:2.5px;background:linear-gradient(#ffffff,#f1f1f3);box-shadow:0 1px 0 rgba(0,0,0,.22),0 0 0 .5px rgba(0,0,0,.06)}
+.keyboard i.f{height:6px}
+.keyboard i.sp{grid-column:span 6}
+.keyboard i.w2{grid-column:span 2}
+.mouse{width:34px;height:58px;border-radius:17px 17px 16px 16px/24px 24px 20px 20px;
+  background:radial-gradient(120% 80% at 50% 25%,#ffffff,#e2e2e5);
+  box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 12px 16px -8px rgba(0,0,0,.35)}
+.hint{position:fixed;left:0;right:0;bottom:40px;text-align:center;font-size:13px;letter-spacing:.06em;color:var(--muted);z-index:3;transition:opacity .4s}
+.skip{position:fixed;top:28px;right:32px;z-index:3;font:inherit;font-size:13px;color:var(--muted);background:none;border:0;cursor:pointer;padding:10px;transition:opacity .4s}
+.skip:hover{color:var(--ink)}
+body.zooming .hint,body.zooming .skip{opacity:0}
+
+/* ---------- HOME (le vrai site) ---------- */
+.home{width:100vw;height:100vh;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;padding:32px 48px}
+body.entered .home{position:relative;height:auto;min-height:100vh}
+.nav{display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.nav ul{display:flex;gap:32px;list-style:none;margin:0;padding:0}
+.nav a:hover{color:var(--muted)}
+.hero{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1100px}
+.hero p{margin:0 0 20px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hero h1{margin:0;font-size:clamp(44px,8vw,120px);line-height:.98;font-weight:500;letter-spacing:-.045em}
+.hero h1 span{color:var(--muted)}
+.foot{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.work{padding:40px 48px 120px}
+.work h2{margin:0 0 24px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:28px 0;border-top:1px solid var(--line);font-size:clamp(24px,3.4vw,44px);letter-spacing:-.02em;transition:padding .3s}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row small{font-size:14px;letter-spacing:0;color:var(--muted)}
+.row:hover{padding-left:12px}
+.work{display:none}
+body.entered .work{display:block}
+@media (max-width:700px){
+  .home{padding:24px 20px}.work{padding:32px 20px 80px}
+  .nav ul{gap:18px}
+  .bezel{padding:5px 5px 14px;border-radius:9px}.bezel::after{bottom:5px}
+  .floor{gap:20px;margin-top:22px}.mouse{width:22px;height:38px}
+}
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene" role="button" tabindex="0" aria-label="Entrer dans le portfolio">
+  <div class="rig" id="rig">
+    <div class="bezel" id="bezel">
+      <div class="screen" id="screen">
+        <!-- La page d'accueil est insérée ici en miniature -->
+        <div class="crt" id="crt"></div>
+        <div class="power" id="power"></div>
+      </div>
+    </div>
+    <div class="stand" id="stand"></div>
+    <div class="base" id="base"></div>
+    <div class="floor" id="floor">
+      <div class="keyboard" id="keyboard" aria-hidden="true"></div>
+      <div class="mouse" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
+<p class="hint" id="hint">Cliquez sur l'écran pour entrer</p>
+<button class="skip" id="skip" type="button">Passer l'intro</button>
+
+<!-- ===== Page d'accueil réelle ===== -->
+<div class="home" id="home">
+  <nav class="nav">
+    <a href="#">Ton Nom</a>
+    <ul>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#">À propos</a></li>
+      <li><a href="mailto:ton@email.com">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="hero">
+    <p>UI/UX designer — Belgique</p>
+    <h1>Je conçois des interfaces <span>simples, claires et utiles.</span></h1>
+  </div>
+  <div class="foot"><span>Disponible pour de nouveaux projets</span><span>↓ Projets</span></div>
+</div>
+<section class="work" id="projets">
+  <h2>Projets sélectionnés</h2>
+  <a class="row" href="#"><span>Pambe</span><small>Plateforme de mise en relation · UI/UX</small></a>
+  <a class="row" href="#"><span>Projet 02</span><small>À venir</small></a>
+  <a class="row" href="#"><span>Projet 03</span><small>À venir</small></a>
+</section>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const scene = $('scene'), rig = $('rig'), screen = $('screen'), home = $('home');
+  const crt = $('crt'), power = $('power');
+  const fades = [$('stand'), $('base'), $('floor')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let seen = false;
+  try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
+
+  function finish() {
+    document.body.insertBefore(home, $('projets'));
+    home.style.transform = '';
+    scene.remove(); $('hint').remove(); $('skip').remove();
+    document.body.classList.remove('zooming');
+    document.body.classList.add('entered');
+    try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+  }
+  if (reduce || seen) { finish(); return; }
+
+  /* --- Taille de l'écran : même ratio que la fenêtre, pour un zoom parfait --- */
+  let s = 1;
+  function layout() {
+    const vw = innerWidth, vh = innerHeight;
+    const w = Math.min(620, vw * (vw < 700 ? 0.62 : 0.46), (vh * 0.46) * vw / vh);
+    s = w / vw;
+    screen.style.width = w + 'px';
+    screen.style.height = (w * vh / vw) + 'px';
+    home.style.transform = `scale(${s})`;
+    kb.style.width = (w * 0.6) + 'px';
+    // origine de rotation = centre de l'écran
+    const r = screen.offsetTop + rig.querySelector('.bezel').offsetTop + screen.offsetHeight / 2;
+    rig.style.transformOrigin = `50% ${r}px`;
+  }
+  const kb = $('keyboard');
+  let keys = '';
+  for (let i = 0; i < 15; i++) keys += '<i class="f"></i>';
+  for (let r = 0; r < 3; r++) for (let i = 0; i < 15; i++) keys += '<i></i>';
+  keys += '<i class="w2"></i><i></i><i></i><i class="sp"></i><i></i><i></i><i class="w2"></i><i></i>';
+  kb.innerHTML = keys;
+  screen.insertBefore(home, crt);
+  layout();
+  addEventListener('resize', layout);
+
+  /* --- Allumage façon tube cathodique --- */
+  power.animate(
+    [{ clipPath: 'inset(50% 0 50% 0)', opacity: 1 }, { clipPath: 'inset(50% 0 50% 0)', opacity: 1, offset: .5 }, { clipPath: 'inset(0 0 0 0)', opacity: 0 }],
+    { duration: 900, delay: 350, easing: 'ease-out', fill: 'forwards' }
+  );
+  screen.animate([{ filter: 'brightness(2.2)' }, { filter: 'brightness(1)' }], { duration: 900, delay: 700, easing: 'ease-out' });
+
+  /* --- Suivi du curseur --- */
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf, zooming = false;
+  addEventListener('pointermove', e => {
+    tx = (e.clientX / innerWidth - .5) * 18;
+    ty = -(e.clientY / innerHeight - .5) * 12;
+  });
+  (function tick() {
+    cx += (tx - cx) * .08; cy += (ty - cy) * .08;
+    if (!zooming) rig.style.transform = `rotateX(${cy}deg) rotateY(${cx}deg)`;
+    raf = requestAnimationFrame(tick);
+  })();
+
+  /* --- Zoom à travers l'écran --- */
+  function enter() {
+    if (zooming) return;
+    zooming = true; cancelAnimationFrame(raf);
+    document.body.classList.add('zooming');
+    const from = rig.style.transform || 'none';
+    rig.style.transform = 'none';
+    const r = screen.getBoundingClientRect();
+    const dx = innerWidth / 2 - (r.left + r.width / 2);
+    const dy = innerHeight / 2 - (r.top + r.height / 2);
+    const to = `translate(${dx}px, ${dy}px) scale(${1 / s})`;
+    const dur = 1500;
+
+    const anim = rig.animate([{ transform: from }, { transform: to }], { duration: dur, easing: 'cubic-bezier(.75,0,.2,1)', fill: 'forwards' });
+    crt.animate([{ opacity: 1 }, { opacity: 0 }], { duration: dur * .6, delay: dur * .3, fill: 'forwards' });
+    screen.animate([{ borderRadius: '12px' }, { borderRadius: '0px' }], { duration: dur, easing: 'cubic-bezier(.75,0,.2,1)', fill: 'forwards' });
+    fades.forEach(el => el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: dur * .5, delay: dur * .45, fill: 'forwards' }));
+    anim.onfinish = finish;
+  }
+  scene.addEventListener('click', enter);
+  scene.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); enter(); } });
+  $('skip').addEventListener('click', e => { e.stopPropagation(); cancelAnimationFrame(raf); finish(); });
+})();
+</script>
+</body>
+</html>
