@@ -346,3 +346,5 @@ html.intro .top.placed.flying,.top.flying{transition:transform 1.2s cubic-bezier
 /* Identité visuelle : la vidéo entière reste visible */
 .g-media.contain{background:#021027}
 .g-media.contain video{object-fit:contain}
+
+.cs-title sup{font-size:.2em;vertical-align:top;position:relative;top:.4em;margin-left:0;letter-spacing:0}
