@@ -1,3 +1,13 @@
+// Nom complet qui se replie en initiales, et se déplie au survol
+const top_ = document.querySelector('.top');
+if (top_) {
+  const names = top_.querySelectorAll('.c, .d'); let tm;
+  const open = () => { clearTimeout(tm); top_.classList.add('open'); };
+  const close = () => { tm = setTimeout(() => top_.classList.remove('open'), 220); };
+  names.forEach(n => { n.addEventListener('mouseenter', open); n.addEventListener('mouseleave', close); });
+  if (top_.classList.contains('intro-load')) setTimeout(() => { if (![...names].some(n => n.matches(':hover'))) top_.classList.remove('open'); }, 1600);
+}
+
 // Apparition au défilement
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
 document.querySelectorAll('.rv').forEach(el => io.observe(el));

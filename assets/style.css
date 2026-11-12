@@ -26,6 +26,21 @@ img,video{display:block;max-width:100%}
 .top nav a.on::before{content:"";position:absolute;left:-18px;top:10px;width:8px;height:8px;border-radius:50%;background:var(--ink)}
 .top nav a:hover{color:var(--muted)}
 
+/* ---------- Nom qui se déplie ---------- */
+.top .big{font-size:min(185px,12.85vw);white-space:nowrap;position:relative;z-index:2;cursor:default}
+.top a.big{cursor:pointer}
+.top .c{position:absolute;left:var(--pad);top:0}
+.top .d{position:absolute;left:calc(41.67% + 51px);top:0}
+.top .rest{display:inline-flex}
+.top .rest i{font-style:normal;display:inline-block;overflow:hidden;max-width:0;opacity:0;transform:translateY(.35em);
+  transition:max-width .7s cubic-bezier(.7,0,.2,1),opacity .35s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+  transition-delay:calc((4 - var(--i)) * 35ms)}
+.top.open .rest i{max-width:1em;opacity:1;transform:none;transition-delay:calc(var(--i) * 45ms)}
+.top .who{transition:opacity .35s}
+.top.open .who,.top.open nav{opacity:0;pointer-events:none}
+.top nav{transition:opacity .35s;position:relative;z-index:3}
+@media (prefers-reduced-motion:reduce){.top .rest i{transition:none}}
+
 /* ---------- Buttons ---------- */
 .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);border-radius:160px;padding:10px 20px;font-weight:500;font-size:20px;letter-spacing:-.02em;transition:background .25s,color .25s}
 .btn:hover{background:var(--ink);color:var(--bg)}
@@ -160,6 +175,9 @@ img,video{display:block;max-width:100%}
   .top .big{font-size:84px;margin-top:-6px}
   .top .c{grid-column:1}
   .top .d{display:none}
+  .top .c{position:static}
+  .top .rest{display:none}
+  .top.open .who,.top.open nav{opacity:1;pointer-events:auto}
   .top .who{grid-column:2;padding-top:8px;font-size:14px}
   .top nav{grid-column:3;padding-top:8px;font-size:14px;line-height:20px}
   .top nav a.on::before{left:-12px;top:7px;width:6px;height:6px}
