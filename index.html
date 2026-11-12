@@ -8,9 +8,10 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+<script>try{if(!sessionStorage.getItem('introVue')&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&innerWidth>820)document.documentElement.classList.add('intro')}catch(e){}</script>
 </head>
 <body>
-<header class="top open intro-load">
+<header class="top">
   <a class="big c" href="index.html" aria-label="Chloé Dubois — accueil">C<span class="rest" aria-hidden="true"><i style="--i:0">H</i><i style="--i:1">L</i><i style="--i:2">O</i><i style="--i:3">E</i></span></a>
   <div class="who"><span>Chloe Dubois</span><span class="role">UI &amp; UX Designer</span><span>3D Artist</span></div>
   <div class="big d" aria-hidden="true">D<span class="rest"><i style="--i:0">U</i><i style="--i:1">B</i><i style="--i:2">O</i><i style="--i:3">I</i><i style="--i:4">S</i></span></div>
@@ -21,13 +22,13 @@
   <div class="slider rv">
     <div class="slides">
       <img class="on" src="assets/media/pambe-macbook.webp" alt="Le site Pambe sur un MacBook">
-      <video src="assets/media/pambe-iphones.mp4" muted loop playsinline preload="metadata" aria-label="Pambe sur mobile"></video>
-      <video src="assets/media/pambe-macbook-recherche.mp4" muted loop playsinline preload="metadata" aria-label="Recherche Pambe sur ordinateur"></video>
+      <video src="assets/media/pambe-iphones.mp4" poster="assets/media/pambe-iphones.jpg" muted loop playsinline preload="metadata" aria-label="Pambe sur mobile"></video>
+      <video src="assets/media/pambe-macbook-recherche.mp4" poster="assets/media/pambe-macbook-recherche.jpg" muted loop playsinline preload="metadata" aria-label="Recherche Pambe sur ordinateur"></video>
     </div>
     <div class="dots"><button class="on" aria-label="Visuel 1"></button><button aria-label="Visuel 2"></button><button aria-label="Visuel 3"></button></div>
   </div>
   <div class="intro rv">
-    <h1>Des interfaces pensées pour les gens qui les utilisent.</h1>
+    <h1 data-mag="0.06">Des interfaces pensées pour les gens qui les utilisent.</h1>
     <p>De la recherche utilisateur au prototype, je transforme des besoins complexes en expériences évidentes.</p>
     <a class="btn" href="projets.html">Projets</a>
   </div>
