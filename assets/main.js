@@ -77,9 +77,9 @@ $$('[data-hover-play]').forEach(box => {
 
 /* ---------- Effet magnétique ---------- */
 if (canHover) {
-  const targets = [...$$('.btn, .chip, .views button, .top nav a, .arrow, .back'), ...$$('[data-mag]')];
+  const targets = $$('.btn, .chip, .views button, .top nav a, .arrow, .back');
   targets.forEach(el => {
-    const strength = parseFloat(el.dataset.mag || '0.35');
+    const strength = 0.14;
     el.classList.add('mag');
     let inner = null;
     if (!el.dataset.mag && !el.querySelector('.mag-in')) {
@@ -91,7 +91,7 @@ if (canHover) {
     const loop = () => {
       cx = lerp(cx, tx, .15); cy = lerp(cy, ty, .15);
       el.style.transform = `translate(${cx}px, ${cy}px)`;
-      if (inner) inner.style.transform = `translate(${cx * .5}px, ${cy * .5}px)`;
+      if (inner) inner.style.transform = `translate(${cx * .25}px, ${cy * .25}px)`;
       raf = (Math.abs(cx - tx) > .05 || Math.abs(cy - ty) > .05) ? requestAnimationFrame(loop) : null;
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
@@ -153,3 +153,12 @@ if (page) {
   const vb = $$('.views button', page);
   vb.forEach(b => b.addEventListener('click', () => { vb.forEach(x => x.classList.toggle('on', x === b)); page.classList.toggle('is-grid', b.dataset.v === 'grid'); }));
 }
+
+/* ---------- CTA : remplissage bleu depuis le point d'entrée du curseur ---------- */
+$$('.btn, .arrow').forEach(el => {
+  const f = document.createElement('span'); f.className = 'fill'; el.prepend(f);
+  const host = el.classList.contains('arrow') ? el.closest('.next') || el : el;
+  const at = e => { const r = el.getBoundingClientRect(); const cl = (v, a, b) => Math.min(Math.max(v, a), b); el.style.setProperty('--x', cl(e.clientX - r.left, 0, r.width) + 'px'); el.style.setProperty('--y', cl(e.clientY - r.top, 0, r.height) + 'px'); el.style.setProperty('--d', (Math.hypot(r.width, r.height) * 2.2) + 'px'); };
+  host.addEventListener('mouseenter', e => { at(e); el.classList.add('filled'); });
+  host.addEventListener('mouseleave', e => { at(e); el.classList.remove('filled'); });
+});

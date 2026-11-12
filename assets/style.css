@@ -318,3 +318,31 @@ body>*:not(.top){transition:opacity .9s ease}
   .timeline li{grid-template-columns:100px 1fr}
   .ab-contact{gap:28px;margin-top:50px}
 }
+
+/* =========================================================
+   v3 — corrections
+   ========================================================= */
+/* Ouverture : le glissement vers le haut */
+html.intro .top.placed.flying,.top.flying{transition:transform 1.2s cubic-bezier(.76,0,.24,1),opacity .6s ease}
+
+/* Survol du nom : rapide et net, comme Harry Atkins */
+.top .rest i{filter:none;transform:translateY(.06em);
+  transition:width .42s cubic-bezier(.3,0,.15,1),opacity .22s ease,transform .42s cubic-bezier(.3,0,.15,1);
+  transition-delay:calc((5 - var(--i)) * 12ms)}
+.top.open .rest i{filter:none;transition-delay:calc(var(--i) * 16ms)}
+
+/* Contenu des éléments magnétiques */
+.mag-in{display:inline-flex;align-items:center;gap:inherit}
+.back{gap:16px}
+.btn .mag-in{gap:8px}
+
+/* CTA : remplissage bleu qui part du curseur */
+.btn,.arrow{position:relative;overflow:hidden;isolation:isolate;transition:color .45s cubic-bezier(.76,0,.24,1),border-color .45s}
+.btn:hover,.next:hover .arrow,.arrow:hover{background:none;color:#fff;border-color:#244CFF}
+.btn .fill,.arrow .fill{position:absolute;left:var(--x,50%);top:var(--y,50%);width:var(--d,300px);height:var(--d,300px);border-radius:50%;
+  background:#244CFF;transform:translate(-50%,-50%) scale(0);transition:transform .55s cubic-bezier(.76,0,.24,1);z-index:-1;pointer-events:none}
+.btn.filled .fill,.arrow.filled .fill{transform:translate(-50%,-50%) scale(1)}
+
+/* Identité visuelle : la vidéo entière reste visible */
+.g-media.contain{background:#021027}
+.g-media.contain video{object-fit:contain}
